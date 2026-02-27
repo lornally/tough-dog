@@ -1,427 +1,622 @@
-# Golden Editor - 暗黑金 macOS 编辑器设计
-# 使用 Pencil VSCode 扩展绘制
-
-## 设计规范
-# 配色: 暗黑金 #0F172A / #CA8A04
-# 特效: 水流光带 + 有机宝石光泽 (不规则条纹)
-# 禁忌: 禁止任何模糊效果
-
-## 画布设置
-Canvas: 1400x900
-Background: #0F172A
-
-## 1. 标题栏 (38px)
-Frame: titleBar
-  - x: 0, y: 0
-  - width: 1400, height: 38
-  - fill: #1E293B
-  - borderBottom: 1px solid #334155
-
-# 红绿灯按钮
-Circle: closeBtn
-  - cx: 20, cy: 19, radius: 6
-  - fill: #FF5F57
-  
-Circle: minBtn
-  - cx: 40, cy: 19, radius: 6
-  - fill: #FFBD2E
-  
-Circle: maxBtn
-  - cx: 60, cy: 19, radius: 6
-  - fill: #28CA42
-
-# 窗口标题
-Text: windowTitle
-  - content: "Golden Editor"
-  - x: 650, y: 22
-  - fontSize: 13
-  - fill: #94A3B8
-
-## 2. 有机宝石光泽背景 (底层)
-# 使用不规则的、有流动感的条纹，而非死板的45度角
-
-# 左侧流动条纹
-Path: organicStripe1
-  - d: "M0,100 Q200,150 400,80 T800,120 T1400,90"
-  - stroke: rgba(202, 138, 4, 0.08)
-  - strokeWidth: 2
-  - fill: none
-
-Path: organicStripe2
-  - d: "M0,200 Q300,180 500,250 T900,200 T1400,240"
-  - stroke: rgba(202, 138, 4, 0.06)
-  - strokeWidth: 3
-  - fill: none
-
-Path: organicStripe3
-  - d: "M0,350 Q250,400 450,320 T850,380 T1400,340"
-  - stroke: rgba(245, 158, 11, 0.05)
-  - strokeWidth: 2
-  - fill: none
-
-Path: organicStripe4
-  - d: "M0,500 Q350,450 600,520 T1000,480 T1400,510"
-  - stroke: rgba(202, 138, 4, 0.07)
-  - strokeWidth: 2.5
-  - fill: none
-
-Path: organicStripe5
-  - d: "M0,650 Q200,700 500,620 T900,680 T1400,640"
-  - stroke: rgba(180, 83, 9, 0.06)
-  - strokeWidth: 3
-  - fill: none
-
-Path: organicStripe6
-  - d: "M0,800 Q400,750 700,820 T1100,780 T1400,810"
-  - stroke: rgba(202, 138, 4, 0.05)
-  - strokeWidth: 2
-  - fill: none
-
-## 3. 左侧面板 (220px宽)
-Frame: leftPanel
-  - x: 0, y: 38
-  - width: 220, height: 838
-  - fill: #1E293B
-  - borderRight: 1px solid #334155
-
-# 有机纹理覆盖
-Path: leftStripe1
-  - d: "M0,200 Q110,250 220,180"
-  - stroke: rgba(202, 138, 4, 0.1)
-  - strokeWidth: 20
-  - fill: none
-
-Path: leftStripe2
-  - d: "M0,400 Q80,350 220,420"
-  - stroke: rgba(245, 158, 11, 0.08)
-  - strokeWidth: 15
-  - fill: none
-
-Path: leftStripe3
-  - d: "M0,600 Q130,650 220,580"
-  - stroke: rgba(202, 138, 4, 0.06)
-  - strokeWidth: 25
-  - fill: none
-
-# 面板标题
-Text: explorerTitle
-  - content: "EXPLORER"
-  - x: 15, y: 65
-  - fontSize: 11
-  - fontWeight: 600
-  - fill: #64748B
-
-# 文件树
-Frame: fileItem1 (main.js - 选中)
-  - x: 0, y: 90
-  - width: 220, height: 26
-  - fill: #334155
-  
-Rect: selectionIndicator
-  - x: 0, y: 90
-  - width: 3, height: 26
-  - fill: #CA8A04
-
-Text: file1
-  - content: "  main.js"
-  - x: 15, y: 107
-  - fontSize: 13
-  - fill: #E8F0FF
-
-Frame: fileItem2 (utils.js)
-  - x: 0, y: 116
-  - width: 220, height: 26
-  - fill: transparent
-
-Text: file2
-  - content: "  utils.js"
-  - x: 15, y: 133
-  - fontSize: 13
-  - fill: #94A3B8
-
-Frame: fileItem3 (config.js)
-  - x: 0, y: 142
-  - width: 220, height: 26
-  - fill: transparent
-
-Text: file3
-  - content: "  config.js"
-  - x: 15, y: 159
-  - fontSize: 13
-  - fill: #94A3B8
-
-## 4. 标签栏
-Frame: tabBar
-  - x: 220, y: 38
-  - width: 980, height: 36
-  - fill: #0F172A
-  - borderBottom: 1px solid #334155
-
-# 当前标签 (main.js)
-Frame: activeTab
-  - x: 230, y: 38
-  - width: 100, height: 36
-  - fill: #1E293B
-  
-Line: tabTopBorder
-  - x1: 230, y1: 38
-  - x2: 330, y2: 38
-  - stroke: #CA8A04
-  - strokeWidth: 2
-
-Text: tabText1
-  - content: "main.js"
-  - x: 245, y: 60
-  - fontSize: 13
-  - fill: #E8F0FF
-
-Text: tabClose1
-  - content: "×"
-  - x: 310, y: 58
-  - fontSize: 14
-  - fill: #64748B
-
-# 非活动标签
-Text: tabText2
-  - content: "utils.js"
-  - x: 345, y: 60
-  - fontSize: 13
-  - fill: #64748B
-
-Text: tabText3
-  - content: "config.js"
-  - x: 415, y: 60
-  - fontSize: 13
-  - fill: #64748B
-
-## 5. 代码编辑区
-Frame: editorArea
-  - x: 220, y: 74
-  - width: 900, height: 760
-  - fill: #0F172A
-
-# 行号区
-Frame: lineNumberArea
-  - x: 220, y: 74
-  - width: 50, height: 760
-  - fill: #0F172A
-
-# 行号
-Text: ln1
-  - content: "1"
-  - x: 255, y: 95
-  - fontSize: 12
-  - fill: #64748B
-  - textAlign: right
-
-Text: ln2
-  - content: "2"
-  - x: 255, y: 117
-  - fontSize: 12
-  - fill: #64748B
-  - textAlign: right
-
-Text: ln3
-  - content: "3"
-  - x: 255, y: 139
-  - fontSize: 12
-  - fill: #64748B
-  - textAlign: right
-
-Text: ln4
-  - content: "4"
-  - x: 255, y: 161
-  - fontSize: 12
-  - fill: #CA8A04
-  - textAlign: right
-
-# 当前行高亮
-Frame: currentLine
-  - x: 270, y: 150
-  - width: 850, height: 26
-  - fill: rgba(202, 138, 4, 0.08)
-
-Line: currentLineBorder
-  - x1: 270, y1: 150
-  - x2: 270, y2: 176
-  - stroke: #CA8A04
-  - strokeWidth: 3
-
-# 代码内容
-Text: code1
-  - content: "import { useState } from 'react';"
-  - x: 285, y: 95
-  - fontSize: 14
-  - fontFamily: "Menlo, monospace"
-  - fill: #F59E0B
-
-Text: code2
-  - content: "function App() {"
-  - x: 285, y: 139
-  - fontSize: 14
-  - fontFamily: "Menlo, monospace"
-  - fill: #F59E0B
-
-Text: code3
-  - content: "const [count, setCount] = useState(0);"
-  - x: 285, y: 161
-  - fontSize: 14
-  - fontFamily: "Menlo, monospace"
-  - fill: #E8F0FF
-
-## 6. 右侧面板
-Frame: rightPanel
-  - x: 1120, y: 74
-  - width: 280, height: 760
-  - fill: #1E293B
-  - borderLeft: 1px solid #CA8A04
-
-# 有机纹理
-Path: rightStripe1
-  - d: "M1120,300 Q1260,250 1400,320"
-  - stroke: rgba(202, 138, 4, 0.08)
-  - strokeWidth: 30
-  - fill: none
-
-Path: rightStripe2
-  - d: "M1120,550 Q1200,600 1400,520"
-  - stroke: rgba(245, 158, 11, 0.06)
-  - strokeWidth: 25
-  - fill: none
-
-Text: contextTitle
-  - content: "CONTEXT"
-  - x: 1135, y: 100
-  - fontSize: 11
-  - fontWeight: 600
-  - fill: #64748B
-
-# AI 卡片
-Frame: aiCard
-  - x: 1135, y: 130
-  - width: 250, height: 100
-  - fill: #334155
-  - borderRadius: 4
-
-Text: aiTitle
-  - content: "🤖 AI Assistant"
-  - x: 1150, y: 155
-  - fontSize: 13
-  - fontWeight: 600
-  - fill: #CA8A04
-
-Text: aiContent
-  - content: "useState is a React Hook that lets\nyou add state to functional components."
-  - x: 1150, y: 180
-  - fontSize: 12
-  - fill: #94A3B8
-
-## 7. 命令栏 + 水流特效
-Frame: commandBar
-  - x: 220, y: 834
-  - width: 900, height: 46
-  - fill: #1E293B
-  - borderTop: 1px solid #334155
-
-# 动态水流光带 - 多条流动线条
-Path: stream1
-  - d: "M220,835 Q450,840 620,835"
-  - stroke: rgba(202, 138, 4, 0.8)
-  - strokeWidth: 2
-  - fill: none
-  - filter: none
-
-Path: stream2
-  - d: "M400,835 Q600,842 750,835"
-  - stroke: rgba(245, 158, 11, 0.6)
-  - strokeWidth: 1.5
-  - fill: none
-
-Path: stream3
-  - d: "M550,835 Q750,838 900,835"
-  - stroke: rgba(202, 138, 4, 0.5)
-  - strokeWidth: 1
-  - fill: none
-
-# 命令提示符
-Text: prompt
-  - content: ">"
-  - x: 235, y: 863
-  - fontSize: 18
-  - fontWeight: bold
-  - fill: #CA8A04
-
-Text: command
-  - content: "git commit -m \"feat: add counter\""
-  - x: 255, y: 863
-  - fontSize: 14
-  - fill: #E8F0FF
-
-# 光标
-Rect: cursor
-  - x: 520, y: 850
-  - width: 2, height: 18
-  - fill: #CA8A04
-
-## 8. 状态栏
-Frame: statusBar
-  - x: 0, y: 880
-  - width: 1400, height: 20
-  - fill: #CA8A04
-
-Text: status1
-  - content: "Ln 4, Col 15"
-  - x: 15, y: 894
-  - fontSize: 11
-  - fill: #0F172A
-
-Text: status2
-  - content: "UTF-8"
-  - x: 100, y: 894
-  - fontSize: 11
-  - fill: #0F172A
-
-Text: status3
-  - content: "JavaScript"
-  - x: 150, y: 894
-  - fontSize: 11
-  - fill: #0F172A
-
-Text: status4
-  - content: "🌙 暗黑"
-  - x: 220, y: 894
-  - fontSize: 11
-  - fill: #0F172A
-
-Text: status5
-  - content: "⎋ LEAP"
-  - x: 280, y: 894
-  - fontSize: 11
-  - fill: #0F172A
-
-## 附加有机装饰线条
-# 贯穿整个界面的流动感线条
-
-Path: flowLine1
-  - d: "M0,50 Q700,100 1400,30"
-  - stroke: rgba(202, 138, 4, 0.04)
-  - strokeWidth: 40
-  - fill: none
-
-Path: flowLine2
-  - d: "M0,880 Q500,820 1400,870"
-  - stroke: rgba(180, 83, 9, 0.05)
-  - strokeWidth: 50
-  - fill: none
-
-Path: flowLine3
-  - d: "M300,0 Q350,450 250,900"
-  - stroke: rgba(202, 138, 4, 0.03)
-  - strokeWidth: 60
-  - fill: none
-
-Path: flowLine4
-  - d: "M1100,0 Q1050,400 1150,900"
-  - stroke: rgba(245, 158, 11, 0.04)
-  - strokeWidth: 45
-  - fill: none
+// Golden Editor - 暗黑金 macOS 编辑器设计
+// 使用 Pencil VSCode 扩展绘制
+// 配色: 暗黑金 #0F172A / #CA8A04
+// 特效: 水流光带 + 有机宝石光泽
+// 禁忌: 禁止任何模糊效果
+
+// 主画布
+screen=I(document, {
+  type: "frame",
+  name: "Screen",
+  x: 0,
+  y: 0,
+  width: 1400,
+  height: 900,
+  fill: "#0F172A"
+})
+
+// 1. 标题栏 (38px)
+titleBar=I(screen, {
+  type: "frame",
+  name: "TitleBar",
+  x: 0,
+  y: 0,
+  width: 1400,
+  height: 38,
+  fill: "#1E293B",
+  borderBottom: { color: "#334155", width: 1 }
+})
+
+// 红绿灯按钮
+closeBtn=I(titleBar, {
+  type: "ellipse",
+  cx: 20,
+  cy: 19,
+  rx: 6,
+  ry: 6,
+  fill: "#FF5F57"
+})
+
+minBtn=I(titleBar, {
+  type: "ellipse",
+  cx: 40,
+  cy: 19,
+  rx: 6,
+  ry: 6,
+  fill: "#FFBD2E"
+})
+
+maxBtn=I(titleBar, {
+  type: "ellipse",
+  cx: 60,
+  cy: 19,
+  rx: 6,
+  ry: 6,
+  fill: "#28CA42"
+})
+
+// 窗口标题
+windowTitle=I(titleBar, {
+  type: "text",
+  content: "Golden Editor",
+  x: 650,
+  y: 22,
+  fontSize: 13,
+  fill: "#94A3B8"
+})
+
+// 2. 有机宝石光泽背景 - 流动条纹
+stripe1=I(screen, {
+  type: "path",
+  d: "M0,100 Q200,150 400,80 T800,120 T1400,90",
+  stroke: "rgba(202, 138, 4, 0.08)",
+  strokeWidth: 2,
+  fill: "none"
+})
+
+stripe2=I(screen, {
+  type: "path",
+  d: "M0,200 Q300,180 500,250 T900,200 T1400,240",
+  stroke: "rgba(202, 138, 4, 0.06)",
+  strokeWidth: 3,
+  fill: "none"
+})
+
+stripe3=I(screen, {
+  type: "path",
+  d: "M0,350 Q250,400 450,320 T850,380 T1400,340",
+  stroke: "rgba(245, 158, 11, 0.05)",
+  strokeWidth: 2,
+  fill: "none"
+})
+
+stripe4=I(screen, {
+  type: "path",
+  d: "M0,500 Q350,450 600,520 T1000,480 T1400,510",
+  stroke: "rgba(202, 138, 4, 0.07)",
+  strokeWidth: 2.5,
+  fill: "none"
+})
+
+stripe5=I(screen, {
+  type: "path",
+  d: "M0,650 Q200,700 500,620 T900,680 T1400,640",
+  stroke: "rgba(180, 83, 9, 0.06)",
+  strokeWidth: 3,
+  fill: "none"
+})
+
+stripe6=I(screen, {
+  type: "path",
+  d: "M0,800 Q400,750 700,820 T1100,780 T1400,810",
+  stroke: "rgba(202, 138, 4, 0.05)",
+  strokeWidth: 2,
+  fill: "none"
+})
+
+// 3. 左侧面板 (220px宽)
+leftPanel=I(screen, {
+  type: "frame",
+  name: "LeftPanel",
+  x: 0,
+  y: 38,
+  width: 220,
+  height: 838,
+  fill: "#1E293B",
+  borderRight: { color: "#334155", width: 1 }
+})
+
+// 左侧面板有机纹理
+leftStripe1=I(leftPanel, {
+  type: "path",
+  d: "M0,162 Q110,212 220,142",
+  stroke: "rgba(202, 138, 4, 0.1)",
+  strokeWidth: 20,
+  fill: "none"
+})
+
+leftStripe2=I(leftPanel, {
+  type: "path",
+  d: "M0,362 Q80,312 220,382",
+  stroke: "rgba(245, 158, 11, 0.08)",
+  strokeWidth: 15,
+  fill: "none"
+})
+
+leftStripe3=I(leftPanel, {
+  type: "path",
+  d: "M0,562 Q130,612 220,542",
+  stroke: "rgba(202, 138, 4, 0.06)",
+  strokeWidth: 25,
+  fill: "none"
+})
+
+// 面板标题
+explorerTitle=I(leftPanel, {
+  type: "text",
+  content: "EXPLORER",
+  x: 15,
+  y: 27,
+  fontSize: 11,
+  fontWeight: "600",
+  fill: "#64748B"
+})
+
+// 文件项1 (选中状态)
+fileItem1=I(leftPanel, {
+  type: "frame",
+  name: "FileItem1",
+  x: 0,
+  y: 52,
+  width: 220,
+  height: 26,
+  fill: "#334155"
+})
+
+selectionIndicator=I(fileItem1, {
+  type: "frame",
+  x: 0,
+  y: 0,
+  width: 3,
+  height: 26,
+  fill: "#CA8A04"
+})
+
+file1Text=I(fileItem1, {
+  type: "text",
+  content: "  main.js",
+  x: 15,
+  y: 17,
+  fontSize: 13,
+  fill: "#E8F0FF"
+})
+
+// 文件项2
+file2Text=I(leftPanel, {
+  type: "text",
+  content: "  utils.js",
+  x: 15,
+  y: 95,
+  fontSize: 13,
+  fill: "#94A3B8"
+})
+
+// 文件项3
+file3Text=I(leftPanel, {
+  type: "text",
+  content: "  config.js",
+  x: 15,
+  y: 121,
+  fontSize: 13,
+  fill: "#94A3B8"
+})
+
+// 4. 标签栏
+tabBar=I(screen, {
+  type: "frame",
+  name: "TabBar",
+  x: 220,
+  y: 38,
+  width: 980,
+  height: 36,
+  fill: "#0F172A",
+  borderBottom: { color: "#334155", width: 1 }
+})
+
+// 当前标签
+activeTab=I(tabBar, {
+  type: "frame",
+  name: "ActiveTab",
+  x: 10,
+  y: 0,
+  width: 100,
+  height: 36,
+  fill: "#1E293B"
+})
+
+tabTopBorder=I(activeTab, {
+  type: "frame",
+  x: 0,
+  y: 0,
+  width: 100,
+  height: 2,
+  fill: "#CA8A04"
+})
+
+tabText1=I(activeTab, {
+  type: "text",
+  content: "main.js",
+  x: 15,
+  y: 22,
+  fontSize: 13,
+  fill: "#E8F0FF"
+})
+
+tabClose1=I(activeTab, {
+  type: "text",
+  content: "×",
+  x: 80,
+  y: 20,
+  fontSize: 14,
+  fill: "#64748B"
+})
+
+// 非活动标签
+tabText2=I(tabBar, {
+  type: "text",
+  content: "utils.js",
+  x: 125,
+  y: 22,
+  fontSize: 13,
+  fill: "#64748B"
+})
+
+tabText3=I(tabBar, {
+  type: "text",
+  content: "config.js",
+  x: 195,
+  y: 22,
+  fontSize: 13,
+  fill: "#64748B"
+})
+
+// 5. 代码编辑区
+editorArea=I(screen, {
+  type: "frame",
+  name: "EditorArea",
+  x: 220,
+  y: 74,
+  width: 900,
+  height: 760,
+  fill: "#0F172A"
+})
+
+// 行号区
+lineNumberArea=I(editorArea, {
+  type: "frame",
+  name: "LineNumbers",
+  x: 0,
+  y: 0,
+  width: 50,
+  height: 760,
+  fill: "#0F172A"
+})
+
+// 行号
+ln1=I(lineNumberArea, {
+  type: "text",
+  content: "1",
+  x: 35,
+  y: 21,
+  fontSize: 12,
+  fill: "#64748B",
+  textAlign: "right"
+})
+
+ln2=I(lineNumberArea, {
+  type: "text",
+  content: "2",
+  x: 35,
+  y: 43,
+  fontSize: 12,
+  fill: "#64748B",
+  textAlign: "right"
+})
+
+ln3=I(lineNumberArea, {
+  type: "text",
+  content: "3",
+  x: 35,
+  y: 65,
+  fontSize: 12,
+  fill: "#64748B",
+  textAlign: "right"
+})
+
+ln4=I(lineNumberArea, {
+  type: "text",
+  content: "4",
+  x: 35,
+  y: 87,
+  fontSize: 12,
+  fill: "#CA8A04",
+  textAlign: "right"
+})
+
+// 当前行高亮
+currentLine=I(editorArea, {
+  type: "frame",
+  name: "CurrentLine",
+  x: 50,
+  y: 76,
+  width: 850,
+  height: 26,
+  fill: "rgba(202, 138, 4, 0.08)"
+})
+
+currentLineBorder=I(currentLine, {
+  type: "frame",
+  x: 0,
+  y: 0,
+  width: 3,
+  height: 26,
+  fill: "#CA8A04"
+})
+
+// 代码内容
+code1=I(editorArea, {
+  type: "text",
+  content: "import { useState } from 'react';",
+  x: 65,
+  y: 21,
+  fontSize: 14,
+  fontFamily: "Menlo, monospace",
+  fill: "#F59E0B"
+})
+
+code2=I(editorArea, {
+  type: "text",
+  content: "function App() {",
+  x: 65,
+  y: 65,
+  fontSize: 14,
+  fontFamily: "Menlo, monospace",
+  fill: "#F59E0B"
+})
+
+code3=I(editorArea, {
+  type: "text",
+  content: "  const [count, setCount] = useState(0);",
+  x: 65,
+  y: 87,
+  fontSize: 14,
+  fontFamily: "Menlo, monospace",
+  fill: "#E8F0FF"
+})
+
+// 6. 右侧面板
+rightPanel=I(screen, {
+  type: "frame",
+  name: "RightPanel",
+  x: 1120,
+  y: 74,
+  width: 280,
+  height: 760,
+  fill: "#1E293B",
+  borderLeft: { color: "#CA8A04", width: 1 }
+})
+
+// 右侧面板有机纹理
+rightStripe1=I(rightPanel, {
+  type: "path",
+  d: "M0,226 Q140,176 280,246",
+  stroke: "rgba(202, 138, 4, 0.08)",
+  strokeWidth: 30,
+  fill: "none"
+})
+
+rightStripe2=I(rightPanel, {
+  type: "path",
+  d: "M0,476 Q80,526 280,446",
+  stroke: "rgba(245, 158, 11, 0.06)",
+  strokeWidth: 25,
+  fill: "none"
+})
+
+contextTitle=I(rightPanel, {
+  type: "text",
+  content: "CONTEXT",
+  x: 15,
+  y: 26,
+  fontSize: 11,
+  fontWeight: "600",
+  fill: "#64748B"
+})
+
+// AI 卡片
+aiCard=I(rightPanel, {
+  type: "frame",
+  name: "AICard",
+  x: 15,
+  y: 56,
+  width: 250,
+  height: 100,
+  fill: "#334155",
+  cornerRadius: 4
+})
+
+aiTitle=I(aiCard, {
+  type: "text",
+  content: "AI Assistant",
+  x: 15,
+  y: 25,
+  fontSize: 13,
+  fontWeight: "600",
+  fill: "#CA8A04"
+})
+
+aiContent=I(aiCard, {
+  type: "text",
+  content: "useState is a React Hook that lets you add state to functional components.",
+  x: 15,
+  y: 50,
+  width: 220,
+  fontSize: 12,
+  fill: "#94A3B8"
+})
+
+// 7. 命令栏 + 水流特效
+commandBar=I(screen, {
+  type: "frame",
+  name: "CommandBar",
+  x: 220,
+  y: 834,
+  width: 900,
+  height: 46,
+  fill: "#1E293B",
+  borderTop: { color: "#334155", width: 1 }
+})
+
+// 水流光带
+stream1=I(commandBar, {
+  type: "path",
+  d: "M0,1 Q230,6 400,1",
+  stroke: "rgba(202, 138, 4, 0.8)",
+  strokeWidth: 2,
+  fill: "none"
+})
+
+stream2=I(commandBar, {
+  type: "path",
+  d: "M180,1 Q380,8 530,1",
+  stroke: "rgba(245, 158, 11, 0.6)",
+  strokeWidth: 1.5,
+  fill: "none"
+})
+
+stream3=I(commandBar, {
+  type: "path",
+  d: "M330,1 Q530,4 680,1",
+  stroke: "rgba(202, 138, 4, 0.5)",
+  strokeWidth: 1,
+  fill: "none"
+})
+
+// 命令提示符
+prompt=I(commandBar, {
+  type: "text",
+  content: ">",
+  x: 15,
+  y: 29,
+  fontSize: 18,
+  fontWeight: "bold",
+  fill: "#CA8A04"
+})
+
+command=I(commandBar, {
+  type: "text",
+  content: "git commit -m \"feat: add counter\"",
+  x: 35,
+  y: 29,
+  fontSize: 14,
+  fill: "#E8F0FF"
+})
+
+// 光标
+cursor=I(commandBar, {
+  type: "frame",
+  x: 300,
+  y: 16,
+  width: 2,
+  height: 18,
+  fill: "#CA8A04"
+})
+
+// 8. 状态栏
+statusBar=I(screen, {
+  type: "frame",
+  name: "StatusBar",
+  x: 0,
+  y: 880,
+  width: 1400,
+  height: 20,
+  fill: "#CA8A04"
+})
+
+status1=I(statusBar, {
+  type: "text",
+  content: "Ln 4, Col 15",
+  x: 15,
+  y: 14,
+  fontSize: 11,
+  fill: "#0F172A"
+})
+
+status2=I(statusBar, {
+  type: "text",
+  content: "UTF-8",
+  x: 100,
+  y: 14,
+  fontSize: 11,
+  fill: "#0F172A"
+})
+
+status3=I(statusBar, {
+  type: "text",
+  content: "JavaScript",
+  x: 150,
+  y: 14,
+  fontSize: 11,
+  fill: "#0F172A"
+})
+
+status4=I(statusBar, {
+  type: "text",
+  content: "暗黑",
+  x: 220,
+  y: 14,
+  fontSize: 11,
+  fill: "#0F172A"
+})
+
+status5=I(statusBar, {
+  type: "text",
+  content: "LEAP",
+  x: 270,
+  y: 14,
+  fontSize: 11,
+  fill: "#0F172A"
+})
+
+// 附加有机装饰线条 - 流动感
+flowLine1=I(screen, {
+  type: "path",
+  d: "M0,50 Q700,100 1400,30",
+  stroke: "rgba(202, 138, 4, 0.04)",
+  strokeWidth: 40,
+  fill: "none"
+})
+
+flowLine2=I(screen, {
+  type: "path",
+  d: "M0,880 Q500,820 1400,870",
+  stroke: "rgba(180, 83, 9, 0.05)",
+  strokeWidth: 50,
+  fill: "none"
+})
+
+flowLine3=I(screen, {
+  type: "path",
+  d: "M300,0 Q350,450 250,900",
+  stroke: "rgba(202, 138, 4, 0.03)",
+  strokeWidth: 60,
+  fill: "none"
+})
+
+flowLine4=I(screen, {
+  type: "path",
+  d: "M1100,0 Q1050,400 1150,900",
+  stroke: "rgba(245, 158, 11, 0.04)",
+  strokeWidth: 45,
+  fill: "none"
+})

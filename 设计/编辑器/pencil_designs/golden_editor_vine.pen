@@ -1,0 +1,111 @@
+# Golden Editor - 藤蔓缠绕风格
+# 螺旋缠绕，有机生长
+
+Canvas: 1400x900
+Background: #0F172A
+
+## 藤蔓纹理
+
+# 藤蔓1 - 从左下向上螺旋
+Path: vine_1
+  - d: "M50,900 Q80,800 120,750 Q180,700 200,600 Q220,500 280,450 Q350,400 380,300 Q400,200 450,150"
+  - stroke: rgba(202, 138, 4, 0.7)
+  - strokeWidth: 2
+
+# 藤蔓1的叶子
+Circle: leaf_1a
+  - cx: 120, cy: 750, r: 5
+  - fill: rgba(245, 158, 11, 0.8)
+
+Circle: leaf_1b
+  - cx: 280, cy: 450, r: 4
+  - fill: rgba(245, 158, 11, 0.7)
+
+Circle: leaf_1c
+  - cx: 450, cy: 150, r: 6
+  - fill: rgba(252, 211, 77, 0.85)
+
+# 藤蔓2 - 从右下向上
+Path: vine_2
+  - d: "M1350,900 Q1300,800 1250,750 Q1200,650 1150,600 Q1120,500 1080,450 Q1050,350 1100,250 Q1120,150 1080,50"
+  - stroke: rgba(202, 138, 4, 0.6)
+  - strokeWidth: 1
+
+Circle: leaf_2a
+  - cx: 1250, cy: 750, r: 4
+  - fill: rgba(245, 158, 11, 0.75)
+
+Circle: leaf_2b
+  - cx: 1080, cy: 450, r: 5
+  - fill: rgba(252, 211, 77, 0.8)
+
+# 藤蔓3 - 中央主藤
+Path: vine_3
+  - d: "M700,900 Q720,800 680,700 Q750,600 720,500 Q780,400 750,300 Q770,200 750,100 Q760,50"
+  - stroke: rgba(202, 138, 4, 0.8)
+  - strokeWidth: 2
+
+Circle: leaf_3a
+  - cx: 680, cy: 700, r: 5
+  - fill: rgba(252, 211, 77, 0.9)
+
+Circle: leaf_3b
+  - cx: 720, cy: 500, r: 4
+  - fill: rgba(245, 158, 11, 0.8)
+
+Circle: leaf_3c
+  - cx: 750, cy: 300, r: 5
+  - fill: rgba(252, 211, 77, 0.85)
+
+# 更多细藤
+Path: vine_4
+  - d: "M300,900 Q350,850 320,750 Q380,650 350,550"
+  - stroke: rgba(202, 138, 4, 0.5)
+  - strokeWidth: 1
+
+Path: vine_5
+  - d: "M1000,900 Q950,800 1020,700 Q980,600 1050,500"
+  - stroke: rgba(202, 138, 4, 0.5)
+  - strokeWidth: 1
+
+## UI层
+
+Frame: titleBar
+  - x: 0, y: 0
+  - width: 1400, height: 38
+  - fill: #1E293B
+
+Circle: btn_close
+  - cx: 20, cy: 19, r: 6
+  - fill: #FF5F57
+
+Circle: btn_min
+  - cx: 40, cy: 19, r: 6
+  - fill: #FFBD2E
+
+Circle: btn_max
+  - cx: 60, cy: 19, r: 6
+  - fill: #28CA42
+
+Line: explorer_right
+  - x1: 220, y1: 38
+  - x2: 220, y2: 880
+  - stroke: #CA8A04
+  - strokeWidth: 1
+
+Line: context_left
+  - x1: 1120, y1: 74
+  - x2: 1120, y2: 834
+  - stroke: #CA8A04
+  - strokeWidth: 1
+
+Line: statusBar_top
+  - x1: 0, y1: 880
+  - x2: 1400, y2: 880
+  - stroke: #CA8A04
+  - strokeWidth: 2
+
+Frame: statusBar
+  - x: 0, y: 880
+  - width: 1400, height: 20
+  - fill: #CA8A04

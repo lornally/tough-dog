@@ -1,0 +1,208 @@
+# Golden Editor V7 - 最终综合版
+# 纤细有机线条 + 鲜艳金色 + 单一边线区分
+
+## 画布设置
+Canvas: 1400x900
+Background: #0F172A
+
+## 有机纹理层（底层）
+
+# 主流动曲线 - 纤细曲线
+Path: organic_1
+  - d: "M-50,100 Q200,150 400,80 T800,120 T1400,90"
+  - stroke: rgba(252, 211, 77, 0.7)
+  - strokeWidth: 1
+
+Path: organic_2
+  - d: "M-30,200 Q300,180 500,250 T900,200 T1400,240"
+  - stroke: rgba(252, 211, 77, 0.6)
+  - strokeWidth: 2
+
+# 蛇形蜿蜒线
+Path: snake_1
+  - d: "M100,800 C150,750 200,850 250,800 S350,750 400,800"
+  - stroke: rgba(252, 211, 77, 0.6)
+  - strokeWidth: 1
+
+# 膨胀节点（小瘤子）
+Circle: node_1
+  - cx: 200, cy: 150, r: 4
+  - fill: rgba(253, 230, 138, 0.9)
+
+Circle: node_2
+  - cx: 500, cy: 250, r: 5
+  - fill: rgba(253, 230, 138, 0.85)
+
+## UI层
+
+# 标题栏
+Frame: titleBar
+  - x: 0, y: 0
+  - width: 1400, height: 38
+  - fill: #1E293B
+
+# 红绿灯按钮
+Circle: btn_close
+  - cx: 20, cy: 19, r: 6
+  - fill: #FF5F57
+
+Circle: btn_min
+  - cx: 40, cy: 19, r: 6
+  - fill: #FFBD2E
+
+Circle: btn_max
+  - cx: 60, cy: 19, r: 6
+  - fill: #28CA42
+
+# 标题
+Text: title
+  - content: "Golden Editor"
+  - x: 650, y: 22
+  - fontSize: 13
+  - fill: #94A3B8
+
+# Explorer区域 - 只用右边线
+Line: explorer_border
+  - x1: 220, y1: 38
+  - x2: 220, y2: 880
+  - stroke: #CA8A04
+  - strokeWidth: 1
+
+Text: explorer_label
+  - content: "EXPLORER"
+  - x: 15, y: 53
+  - fontSize: 11
+  - fill: #64748B
+
+# 文件项 - main.js 选中
+Line: file_active_bottom
+  - x1: 0, y1: 102
+  - x2: 220, y2: 102
+  - stroke: #CA8A04
+  - strokeWidth: 2
+
+Line: file_active_left
+  - x1: 0, y1: 80
+  - x2: 0, y2: 102
+  - stroke: #CA8A04
+  - strokeWidth: 3
+
+Text: file_main
+  - content: "  main.js"
+  - x: 15, y: 90
+  - fontSize: 13
+  - fill: #E8F0FF
+
+# 标签栏 - 底线
+Line: tabBar_bottom
+  - x1: 220, y1: 74
+  - x2: 1120, y2: 74
+  - stroke: #334155
+  - strokeWidth: 1
+
+# 当前标签 - 顶线金边
+Line: tab_active_top
+  - x1: 230, y1: 43
+  - x2: 350, y2: 43
+  - stroke: #CA8A04
+  - strokeWidth: 3
+
+Frame: tab_active_bg
+  - x: 230, y: 43
+  - width: 120, height: 31
+  - fill: #1E293B
+
+Text: tab_main
+  - content: "main.js"
+  - x: 252, y: 62
+  - fontSize: 13
+  - fill: #E8F0FF
+
+# 编辑区 - 当前行金边
+Line: currentLine_left
+  - x1: 220, y1: 150
+  - x2: 220, y2: 174
+  - stroke: #CA8A04
+  - strokeWidth: 4
+
+Line: currentLine_bottom
+  - x1: 220, y1: 174
+  - x2: 1120, y2: 174
+  - stroke: #CA8A04
+  - strokeWidth: 1
+
+# Context区域 - 左边线
+Line: context_border
+  - x1: 1120, y1: 74
+  - x2: 1120, y2: 834
+  - stroke: #CA8A04
+  - strokeWidth: 1
+
+# AI卡片 - 底线
+Line: ai_card_bottom
+  - x1: 1130, y1: 194
+  - x2: 1390, y2: 194
+  - stroke: #CA8A04
+  - strokeWidth: 1
+
+Frame: ai_card
+  - x: 1130, y: 119
+  - width: 260, height: 75
+  - fill: #334155
+
+Text: ai_title
+  - content: "AI Assistant"
+  - x: 1150, y: 148
+  - fontSize: 13
+  - fill: #CA8A04
+
+# 命令栏 - 顶线
+Line: commandBar_top
+  - x1: 220, y1: 834
+  - x2: 1120, y2: 834
+  - stroke: #334155
+  - strokeWidth: 1
+
+# 水流特效光点
+Circle: stream_1
+  - cx: 255, cy: 837, r: 6
+  - fill: rgba(245, 158, 11, 0.8)
+
+Circle: stream_2
+  - cx: 290, cy: 837, r: 5
+  - fill: rgba(252, 211, 77, 0.7)
+
+Circle: stream_3
+  - cx: 325, cy: 837, r: 7
+  - fill: rgba(245, 158, 11, 0.6)
+
+Text: prompt
+  - content: ">"
+  - x: 235, y: 863
+  - fontSize: 18
+  - fontWeight: bold
+  - fill: #CA8A04
+
+Text: command
+  - content: "git commit -m \"feat: add counter\""
+  - x: 255, y: 865
+  - fontSize: 14
+  - fill: #E8F0FF
+
+# 状态栏 - 顶线
+Line: statusBar_top
+  - x1: 0, y1: 880
+  - x2: 1400, y2: 880
+  - stroke: #CA8A04
+  - strokeWidth: 2
+
+Frame: statusBar
+  - x: 0, y: 880
+  - width: 1400, height: 20
+  - fill: #CA8A04
+
+Text: status
+  - content: "Ln 4, Col 15    UTF-8    JavaScript    🌙 暗黑    ⎋ LEAP"
+  - x: 15, y: 894
+  - fontSize: 11
+  - fill: #0F172A
