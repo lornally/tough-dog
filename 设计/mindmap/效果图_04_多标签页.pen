@@ -1,0 +1,364 @@
+// MindMap 效果图 4/4 - 多标签页
+// 风格: 暗黑科技
+// 配色: 自然绿 #34C759 / #30D158
+
+// 主画布
+screen=I(document, {
+  type: "frame",
+  name: "Screen",
+  x: 0,
+  y: 0,
+  width: 1200,
+  height: 800,
+  fill: "#0D1117"
+})
+
+// 标题栏
+titleBar=I(screen, { type: "frame", x: 0, y: 0, width: 1200, height: 40, fill: "#161B22", borderBottom: { color: "#30363D", width: 1 } })
+closeBtn=I(titleBar, { type: "ellipse", cx: 20, cy: 20, rx: 6, ry: 6, fill: "#FF5F57" })
+minBtn=I(titleBar, { type: "ellipse", cx: 40, cy: 20, rx: 6, ry: 6, fill: "#FFBD2E" })
+maxBtn=I(titleBar, { type: "ellipse", cx: 60, cy: 20, rx: 6, ry: 6, fill: "#28CA42" })
+windowTitle=I(titleBar, { type: "text", content: "MindMap", x: 580, y: 24, fontSize: 13, fill: "#8B949E" })
+
+// 菜单栏
+menuBar=I(screen, { type: "frame", x: 0, y: 40, width: 1200, height: 28, fill: "#161B22", borderBottom: { color: "#30363D", width: 1 } })
+menuFile=I(menuBar, { type: "text", content: "文件", x: 15, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuEdit=I(menuBar, { type: "text", content: "编辑", x: 55, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuView=I(menuBar, { type: "text", content: "视图", x: 95, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuInsert=I(menuBar, { type: "text", content: "插入", x: 135, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuFormat=I(menuBar, { type: "text", content: "格式", x: 175, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuHelp=I(menuBar, { type: "text", content: "帮助", x: 215, y: 19, fontSize: 12, fill: "#C9D1D9" })
+
+// 工具栏
+toolbar=I(screen, { type: "frame", x: 0, y: 68, width: 1200, height: 44, fill: "#0D1117", borderBottom: { color: "#30363D", width: 1 } })
+toolBtn1=I(toolbar, { type: "frame", x: 15, y: 8, width: 32, height: 28, fill: "#238636", cornerRadius: 4 })
+toolBtn1Icon=I(toolBtn1, { type: "text", content: "+", x: 16, y: 19, fontSize: 16, fontWeight: "bold", fill: "#FFFFFF" })
+
+// ========== 多标签栏 ==========
+tabBar=I(screen, {
+  type: "frame",
+  x: 0,
+  y: 112,
+  width: 1200,
+  height: 40,
+  fill: "#0D1117",
+  borderBottom: { color: "#30363D", width: 1 }
+})
+
+// 标签1 - 当前活动标签（产品规划）
+activeTab=I(tabBar, {
+  type: "frame",
+  name: "ActiveTab",
+  x: 10,
+  y: 4,
+  width: 140,
+  height: 36,
+  fill: "#161B22",
+  cornerRadius: 6
+})
+
+// 标签顶部高亮条
+tabHighlight=I(activeTab, {
+  type: "frame",
+  x: 0,
+  y: 0,
+  width: 140,
+  height: 2,
+  fill: "#34C759"
+})
+
+// 修改指示点（有未保存更改）
+modifiedDot=I(activeTab, {
+  type: "ellipse",
+  cx: 20,
+  cy: 19,
+  rx: 4,
+  ry: 4,
+  fill: "#34C759"
+})
+
+tabText1=I(activeTab, {
+  type: "text",
+  content: "产品规划",
+  x: 60,
+  y: 22,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+tabClose1=I(activeTab, {
+  type: "text",
+  content: "×",
+  x: 120,
+  y: 21,
+  fontSize: 14,
+  fill: "#8B949E"
+})
+
+// 标签2 - 技术架构（非活动）
+tab2=I(tabBar, {
+  type: "frame",
+  x: 160,
+  y: 4,
+  width: 120,
+  height: 36,
+  fill: "transparent",
+  cornerRadius: 6
+})
+
+tabText2=I(tab2, {
+  type: "text",
+  content: "技术架构",
+  x: 60,
+  y: 22,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+tabClose2=I(tab2, {
+  type: "text",
+  content: "×",
+  x: 100,
+  y: 21,
+  fontSize: 14,
+  fill: "#6E7681"
+})
+
+// 标签3 - 会议记录（非活动）
+tab3=I(tabBar, {
+  type: "frame",
+  x: 290,
+  y: 4,
+  width: 120,
+  height: 36,
+  fill: "transparent",
+  cornerRadius: 6
+})
+
+// 已保存状态（无修改点）
+savedIcon=I(tab3, {
+  type: "text",
+  content: "✓",
+  x: 15,
+  y: 22,
+  fontSize: 10,
+  fill: "#34C759"
+})
+
+tabText3=I(tab3, {
+  type: "text",
+  content: "会议记录",
+  x: 60,
+  y: 22,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+tabClose3=I(tab3, {
+  type: "text",
+  content: "×",
+  x: 100,
+  y: 21,
+  fontSize: 14,
+  fill: "#6E7681"
+})
+
+// 标签4 - 学习笔记（非活动，被截断显示）
+tab4=I(tabBar, {
+  type: "frame",
+  x: 420,
+  y: 4,
+  width: 100,
+  height: 36,
+  fill: "transparent",
+  cornerRadius: 6
+})
+
+tabText4=I(tab4, {
+  type: "text",
+  content: "学习笔记...",
+  x: 50,
+  y: 22,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+// 新建标签按钮
+newTabBtn=I(tabBar, {
+  type: "frame",
+  x: 530,
+  y: 8,
+  width: 28,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+newTabIcon=I(newTabBtn, {
+  type: "text",
+  content: "+",
+  x: 14,
+  y: 18,
+  fontSize: 16,
+  fontWeight: "bold",
+  fill: "#8B949E"
+})
+
+// 标签滚动按钮（当标签太多时）
+scrollLeftBtn=I(tabBar, {
+  type: "frame",
+  x: 1080,
+  y: 8,
+  width: 28,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+scrollLeftIcon=I(scrollLeftBtn, {
+  type: "text",
+  content: "◀",
+  x: 14,
+  y: 18,
+  fontSize: 10,
+  fill: "#8B949E"
+})
+
+scrollRightBtn=I(tabBar, {
+  type: "frame",
+  x: 1115,
+  y: 8,
+  width: 28,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+scrollRightIcon=I(scrollRightBtn, {
+  type: "text",
+  content: "▶",
+  x: 14,
+  y: 18,
+  fontSize: 10,
+  fill: "#8B949E"
+})
+
+// 下拉菜单按钮
+dropdownBtn=I(tabBar, {
+  type: "frame",
+  x: 1150,
+  y: 8,
+  width: 28,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+dropdownIcon=I(dropdownBtn, {
+  type: "text",
+  content: "▼",
+  x: 14,
+  y: 18,
+  fontSize: 10,
+  fill: "#8B949E"
+})
+
+// ========== 左侧面板 ==========
+leftPanel=I(screen, {
+  type: "frame",
+  x: 0,
+  y: 152,
+  width: 200,
+  height: 620,
+  fill: "#161B22",
+  borderRight: { color: "#30363D", width: 1 }
+})
+
+outlineTitle=I(leftPanel, { type: "text", content: "大纲", x: 15, y: 28, fontSize: 12, fontWeight: "600", fill: "#8B949E" })
+outlineItem1=I(leftPanel, { type: "text", content: "  产品规划", x: 15, y: 55, fontSize: 13, fill: "#34C759" })
+outlineItem2=I(leftPanel, { type: "text", content: "    市场调研", x: 15, y: 80, fontSize: 13, fill: "#C9D1D9" })
+outlineItem3=I(leftPanel, { type: "text", content: "    竞品分析", x: 15, y: 105, fontSize: 13, fill: "#C9D1D9" })
+outlineItem4=I(leftPanel, { type: "text", content: "    功能规划", x: 15, y: 130, fontSize: 13, fill: "#C9D1D9" })
+outlineItem5=I(leftPanel, { type: "text", content: "    路线图", x: 15, y: 155, fontSize: 13, fill: "#C9D1D9" })
+
+// ========== 主画布区域（产品规划思维导图） ==========
+canvasArea=I(screen, {
+  type: "frame",
+  x: 200,
+  y: 152,
+  width: 800,
+  height: 620,
+  fill: "#0D1117"
+})
+
+// 根节点
+rootNode=I(canvasArea, {
+  type: "frame",
+  x: 350,
+  y: 290,
+  width: 100,
+  height: 40,
+  fill: "#238636",
+  cornerRadius: 20
+})
+
+rootText=I(rootNode, {
+  type: "text",
+  content: "产品规划",
+  x: 50,
+  y: 24,
+  fontSize: 14,
+  fontWeight: "600",
+  fill: "#FFFFFF"
+})
+
+// 子节点
+childNode1=I(canvasArea, { type: "frame", x: 520, y: 150, width: 100, height: 36, fill: "#161B22", cornerRadius: 6, border: { color: "#34C759", width: 1 } })
+childText1=I(childNode1, { type: "text", content: "市场调研", x: 50, y: 22, fontSize: 13, fill: "#C9D1D9" })
+
+childNode2=I(canvasArea, { type: "frame", x: 520, y: 220, width: 100, height: 36, fill: "#161B22", cornerRadius: 6, border: { color: "#34C759", width: 1 } })
+childText2=I(childNode2, { type: "text", content: "竞品分析", x: 50, y: 22, fontSize: 13, fill: "#C9D1D9" })
+
+childNode3=I(canvasArea, { type: "frame", x: 520, y: 290, width: 100, height: 36, fill: "#161B22", cornerRadius: 6, border: { color: "#34C759", width: 1 } })
+childText3=I(childNode3, { type: "text", content: "功能规划", x: 50, y: 22, fontSize: 13, fill: "#C9D1D9" })
+
+childNode4=I(canvasArea, { type: "frame", x: 520, y: 360, width: 100, height: 36, fill: "#161B22", cornerRadius: 6, border: { color: "#34C759", width: 1 } })
+childText4=I(childNode4, { type: "text", content: "路线图", x: 50, y: 22, fontSize: 13, fill: "#C9D1D9" })
+
+childNode5=I(canvasArea, { type: "frame", x: 520, y: 430, width: 100, height: 36, fill: "#238636", cornerRadius: 6 })
+childText5=I(childNode5, { type: "text", content: "资源分配", x: 50, y: 22, fontSize: 13, fontWeight: "500", fill: "#FFFFFF" })
+
+// 连接线
+conn1=I(canvasArea, { type: "path", d: "M450,310 Q485,168 520,168", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+conn2=I(canvasArea, { type: "path", d: "M450,310 Q485,238 520,238", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+conn3=I(canvasArea, { type: "path", d: "M450,310 Q485,308 520,308", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+conn4=I(canvasArea, { type: "path", d: "M450,310 Q485,378 520,378", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+conn5=I(canvasArea, { type: "path", d: "M450,310 Q485,448 520,448", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+
+// ========== 右侧面板 ==========
+rightPanel=I(screen, {
+  type: "frame",
+  x: 1000,
+  y: 152,
+  width: 200,
+  height: 620,
+  fill: "#161B22",
+  borderLeft: { color: "#30363D", width: 1 }
+})
+
+propTitle=I(rightPanel, { type: "text", content: "属性", x: 15, y: 28, fontSize: 12, fontWeight: "600", fill: "#8B949E" })
+
+// ========== 状态栏 ==========
+statusBar=I(screen, {
+  type: "frame",
+  x: 0,
+  y: 772,
+  width: 1200,
+  height: 28,
+  fill: "#238636"
+})
+
+statusZoom=I(statusBar, { type: "text", content: "缩放: 100%", x: 15, y: 18, fontSize: 11, fill: "#FFFFFF" })
+statusNodeCount=I(statusBar, { type: "text", content: "节点: 6", x: 100, y: 18, fontSize: 11, fill: "#FFFFFF" })
+statusTabInfo=I(statusBar, { type: "text", content: "标签 1/4", x: 170, y: 18, fontSize: 11, fill: "#FFFFFF" })
+statusModified=I(statusBar, { type: "text", content: "● 未保存", x: 240, y: 18, fontSize: 11, fill: "#FFFFFF" })

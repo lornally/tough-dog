@@ -1,0 +1,190 @@
+// MindMap 效果图 3/4 - 右键菜单
+// 风格: 暗黑科技
+// 配色: 自然绿 #34C759 / #30D158
+
+// 主画布
+screen=I(document, {
+  type: "frame",
+  name: "Screen",
+  x: 0,
+  y: 0,
+  width: 1200,
+  height: 800,
+  fill: "#0D1117"
+})
+
+// 标题栏
+titleBar=I(screen, { type: "frame", x: 0, y: 0, width: 1200, height: 40, fill: "#161B22", borderBottom: { color: "#30363D", width: 1 } })
+closeBtn=I(titleBar, { type: "ellipse", cx: 20, cy: 20, rx: 6, ry: 6, fill: "#FF5F57" })
+minBtn=I(titleBar, { type: "ellipse", cx: 40, cy: 20, rx: 6, ry: 6, fill: "#FFBD2E" })
+maxBtn=I(titleBar, { type: "ellipse", cx: 60, cy: 20, rx: 6, ry: 6, fill: "#28CA42" })
+windowTitle=I(titleBar, { type: "text", content: "MindMap - 未命名", x: 550, y: 24, fontSize: 13, fill: "#8B949E" })
+
+// 菜单栏
+menuBar=I(screen, { type: "frame", x: 0, y: 40, width: 1200, height: 28, fill: "#161B22", borderBottom: { color: "#30363D", width: 1 } })
+menuFile=I(menuBar, { type: "text", content: "文件", x: 15, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuEdit=I(menuBar, { type: "text", content: "编辑", x: 55, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuView=I(menuBar, { type: "text", content: "视图", x: 95, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuInsert=I(menuBar, { type: "text", content: "插入", x: 135, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuFormat=I(menuBar, { type: "text", content: "格式", x: 175, y: 19, fontSize: 12, fill: "#C9D1D9" })
+menuHelp=I(menuBar, { type: "text", content: "帮助", x: 215, y: 19, fontSize: 12, fill: "#C9D1D9" })
+
+// 工具栏
+toolbar=I(screen, { type: "frame", x: 0, y: 68, width: 1200, height: 44, fill: "#0D1117", borderBottom: { color: "#30363D", width: 1 } })
+toolBtn1=I(toolbar, { type: "frame", x: 15, y: 8, width: 32, height: 28, fill: "#238636", cornerRadius: 4 })
+toolBtn1Icon=I(toolBtn1, { type: "text", content: "+", x: 16, y: 19, fontSize: 16, fontWeight: "bold", fill: "#FFFFFF" })
+
+// 左侧面板
+leftPanel=I(screen, { type: "frame", x: 0, y: 112, width: 200, height: 656, fill: "#161B22", borderRight: { color: "#30363D", width: 1 } })
+outlineTitle=I(leftPanel, { type: "text", content: "大纲", x: 15, y: 28, fontSize: 12, fontWeight: "600", fill: "#8B949E" })
+outlineItem1=I(leftPanel, { type: "text", content: "  项目计划", x: 15, y: 55, fontSize: 13, fill: "#34C759" })
+
+// 标签栏
+tabBar=I(screen, { type: "frame", x: 200, y: 112, width: 800, height: 36, fill: "#0D1117", borderBottom: { color: "#30363D", width: 1 } })
+activeTab=I(tabBar, { type: "frame", x: 10, y: 0, width: 120, height: 36, fill: "#161B22", borderBottom: { color: "#34C759", width: 2 } })
+tabText1=I(activeTab, { type: "text", content: "未命名.mindmap", x: 15, y: 22, fontSize: 12, fill: "#C9D1D9" })
+
+// 主画布区域
+canvasArea=I(screen, { type: "frame", x: 200, y: 148, width: 800, height: 620, fill: "#0D1117" })
+
+// 根节点
+rootNode=I(canvasArea, { type: "frame", x: 350, y: 280, width: 100, height: 40, fill: "#238636", cornerRadius: 20 })
+rootText=I(rootNode, { type: "text", content: "项目计划", x: 50, y: 24, fontSize: 14, fontWeight: "600", fill: "#FFFFFF" })
+
+// 子节点1 - 右键菜单目标
+childNode1=I(canvasArea, {
+  type: "frame",
+  x: 520,
+  y: 180,
+  width: 100,
+  height: 36,
+  fill: "#161B22",
+  cornerRadius: 6,
+  border: { color: "#34C759", width: 2 }  // 高亮边框
+})
+
+childText1=I(childNode1, { type: "text", content: "需求分析", x: 50, y: 22, fontSize: 13, fill: "#C9D1D9" })
+
+// 其他节点
+childNode2=I(canvasArea, { type: "frame", x: 520, y: 280, width: 100, height: 36, fill: "#161B22", cornerRadius: 6, border: { color: "#34C759", width: 1 } })
+childText2=I(childNode2, { type: "text", content: "技术选型", x: 50, y: 22, fontSize: 13, fill: "#C9D1D9" })
+
+childNode3=I(canvasArea, { type: "frame", x: 520, y: 380, width: 100, height: 36, fill: "#238636", cornerRadius: 6 })
+childText3=I(childNode3, { type: "text", content: "开发阶段", x: 50, y: 22, fontSize: 13, fontWeight: "500", fill: "#FFFFFF" })
+
+// 连接线
+connection1=I(canvasArea, { type: "path", d: "M450,300 Q485,198 520,198", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+connection2=I(canvasArea, { type: "path", d: "M450,300 Q485,298 520,298", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+connection3=I(canvasArea, { type: "path", d: "M450,300 Q485,398 520,398", stroke: "#34C759", strokeWidth: 2, fill: "none" })
+
+// ========== 右键菜单 ==========
+contextMenu=I(canvasArea, {
+  type: "frame",
+  x: 560,
+  y: 130,
+  width: 180,
+  height: 280,
+  fill: "#161B22",
+  cornerRadius: 6,
+  border: { color: "#30363D", width: 1 }
+})
+
+// 菜单阴影效果
+menuShadow=I(canvasArea, {
+  type: "frame",
+  x: 565,
+  y: 135,
+  width: 180,
+  height: 280,
+  fill: "rgba(0, 0, 0, 0.3)",
+  cornerRadius: 6
+})
+
+// 菜单项
+menuItem1=I(contextMenu, {
+  type: "frame",
+  x: 0,
+  y: 0,
+  width: 180,
+  height: 32,
+  fill: "#34C759"  // 高亮
+})
+
+menuItem1Text=I(menuItem1, { type: "text", content: "编辑", x: 15, y: 21, fontSize: 13, fill: "#FFFFFF" })
+menuItem1Shortcut=I(menuItem1, { type: "text", content: "F2", x: 160, y: 21, fontSize: 12, fill: "rgba(255,255,255,0.7)" })
+
+menuItem2=I(contextMenu, { type: "frame", x: 0, y: 32, width: 180, height: 32, fill: "transparent" })
+menuItem2Text=I(menuItem2, { type: "text", content: "添加子节点", x: 15, y: 21, fontSize: 13, fill: "#C9D1D9" })
+menuItem2Shortcut=I(menuItem2, { type: "text", content: "Tab", x: 155, y: 21, fontSize: 12, fill: "#8B949E" })
+
+menuItem3=I(contextMenu, { type: "frame", x: 0, y: 64, width: 180, height: 32, fill: "transparent" })
+menuItem3Text=I(menuItem3, { type: "text", content: "添加兄弟节点", x: 15, y: 21, fontSize: 13, fill: "#C9D1D9" })
+menuItem3Shortcut=I(menuItem3, { type: "text", content: "Enter", x: 145, y: 21, fontSize: 12, fill: "#8B949E" })
+
+// 分隔线
+divider1=I(contextMenu, { type: "frame", x: 10, y: 96, width: 160, height: 1, fill: "#30363D" })
+
+menuItem4=I(contextMenu, { type: "frame", x: 0, y: 97, width: 180, height: 32, fill: "transparent" })
+menuItem4Text=I(menuItem4, { type: "text", content: "复制", x: 15, y: 21, fontSize: 13, fill: "#C9D1D9" })
+menuItem4Shortcut=I(menuItem4, { type: "text", content: "⌘C", x: 150, y: 21, fontSize: 12, fill: "#8B949E" })
+
+menuItem5=I(contextMenu, { type: "frame", x: 0, y: 129, width: 180, height: 32, fill: "transparent" })
+menuItem5Text=I(menuItem5, { type: "text", content: "粘贴", x: 15, y: 21, fontSize: 13, fill: "#C9D1D9" })
+menuItem5Shortcut=I(menuItem5, { type: "text", content: "⌘V", x: 150, y: 21, fontSize: 12, fill: "#8B949E" })
+
+// 分隔线
+divider2=I(contextMenu, { type: "frame", x: 10, y: 161, width: 160, height: 1, fill: "#30363D" })
+
+// 子菜单项（带箭头）
+menuItem6=I(contextMenu, { type: "frame", x: 0, y: 162, width: 180, height: 32, fill: "transparent" })
+menuItem6Text=I(menuItem6, { type: "text", content: "样式", x: 15, y: 21, fontSize: 13, fill: "#C9D1D9" })
+menuItem6Arrow=I(menuItem6, { type: "text", content: "▶", x: 160, y: 21, fontSize: 10, fill: "#8B949E" })
+
+menuItem7=I(contextMenu, { type: "frame", x: 0, y: 194, width: 180, height: 32, fill: "transparent" })
+menuItem7Text=I(menuItem7, { type: "text", content: "布局", x: 15, y: 21, fontSize: 13, fill: "#C9D1D9" })
+menuItem7Arrow=I(menuItem7, { type: "text", content: "▶", x: 160, y: 21, fontSize: 10, fill: "#8B949E" })
+
+// 分隔线
+divider3=I(contextMenu, { type: "frame", x: 10, y: 226, width: 160, height: 1, fill: "#30363D" })
+
+menuItem8=I(contextMenu, { type: "frame", x: 0, y: 227, width: 180, height: 32, fill: "transparent" })
+menuItem8Text=I(menuItem8, { type: "text", content: "删除", x: 15, y: 21, fontSize: 13, fill: "#F85149" })
+menuItem8Shortcut=I(menuItem8, { type: "text", content: "Del", x: 150, y: 21, fontSize: 12, fill: "#8B949E" })
+
+// ========== 样式子菜单（展开状态） ==========
+styleSubmenu=I(canvasArea, {
+  type: "frame",
+  x: 745,
+  y: 162,
+  width: 140,
+  height: 140,
+  fill: "#161B22",
+  cornerRadius: 6,
+  border: { color: "#30363D", width: 1 }
+})
+
+styleItem1=I(styleSubmenu, { type: "frame", x: 0, y: 0, width: 140, height: 28, fill: "#34C759" })
+styleItem1Text=I(styleItem1, { type: "text", content: "圆角矩形", x: 15, y: 19, fontSize: 12, fill: "#FFFFFF" })
+
+styleItem2=I(styleSubmenu, { type: "frame", x: 0, y: 28, width: 140, height: 28, fill: "transparent" })
+styleItem2Text=I(styleItem2, { type: "text", content: "矩形", x: 15, y: 19, fontSize: 12, fill: "#C9D1D9" })
+
+styleItem3=I(styleSubmenu, { type: "frame", x: 0, y: 56, width: 140, height: 28, fill: "transparent" })
+styleItem3Text=I(styleItem3, { type: "text", content: "圆形", x: 15, y: 19, fontSize: 12, fill: "#C9D1D9" })
+
+styleDivider=I(styleSubmenu, { type: "frame", x: 10, y: 84, width: 120, height: 1, fill: "#30363D" })
+
+styleItem4=I(styleSubmenu, { type: "frame", x: 0, y: 85, width: 140, height: 28, fill: "transparent" })
+styleItem4Text=I(styleItem4, { type: "text", content: "填充颜色...", x: 15, y: 19, fontSize: 12, fill: "#C9D1D9" })
+
+styleItem5=I(styleSubmenu, { type: "frame", x: 0, y: 113, width: 140, height: 27, fill: "transparent" })
+styleItem5Text=I(styleItem5, { type: "text", content: "边框颜色...", x: 15, y: 19, fontSize: 12, fill: "#C9D1D9" })
+
+// 右侧面板
+rightPanel=I(screen, { type: "frame", x: 1000, y: 112, width: 200, height: 656, fill: "#161B22", borderLeft: { color: "#30363D", width: 1 } })
+propTitle=I(rightPanel, { type: "text", content: "属性", x: 15, y: 28, fontSize: 12, fontWeight: "600", fill: "#8B949E" })
+
+// 状态栏
+statusBar=I(screen, { type: "frame", x: 0, y: 772, width: 1200, height: 28, fill: "#238636" })
+statusZoom=I(statusBar, { type: "text", content: "缩放: 100%", x: 15, y: 18, fontSize: 11, fill: "#FFFFFF" })
+statusNodeCount=I(statusBar, { type: "text", content: "节点: 7", x: 100, y: 18, fontSize: 11, fill: "#FFFFFF" })

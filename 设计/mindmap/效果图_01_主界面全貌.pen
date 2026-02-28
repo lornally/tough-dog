@@ -1,0 +1,776 @@
+// MindMap 效果图 1/4 - 主界面全貌
+// 风格: 暗黑科技
+// 配色: 自然绿 #34C759 / #30D158
+// 背景: 深空黑 #1E1E1E / #0D1117
+
+// 主画布 (1200x800)
+screen=I(document, {
+  type: "frame",
+  name: "Screen",
+  x: 0,
+  y: 0,
+  width: 1200,
+  height: 800,
+  fill: "#0D1117"
+})
+
+// ========== 1. 顶部标题栏 (40px) ==========
+titleBar=I(screen, {
+  type: "frame",
+  name: "TitleBar",
+  x: 0,
+  y: 0,
+  width: 1200,
+  height: 40,
+  fill: "#161B22",
+  borderBottom: { color: "#30363D", width: 1 }
+})
+
+// macOS 红绿灯按钮
+closeBtn=I(titleBar, {
+  type: "ellipse",
+  cx: 20,
+  cy: 20,
+  rx: 6,
+  ry: 6,
+  fill: "#FF5F57"
+})
+
+minBtn=I(titleBar, {
+  type: "ellipse",
+  cx: 40,
+  cy: 20,
+  rx: 6,
+  ry: 6,
+  fill: "#FFBD2E"
+})
+
+maxBtn=I(titleBar, {
+  type: "ellipse",
+  cx: 60,
+  cy: 20,
+  rx: 6,
+  ry: 6,
+  fill: "#28CA42"
+})
+
+// 窗口标题
+windowTitle=I(titleBar, {
+  type: "text",
+  content: "MindMap - 未命名",
+  x: 550,
+  y: 24,
+  fontSize: 13,
+  fill: "#8B949E"
+})
+
+// ========== 2. 菜单栏 (28px) ==========
+menuBar=I(screen, {
+  type: "frame",
+  name: "MenuBar",
+  x: 0,
+  y: 40,
+  width: 1200,
+  height: 28,
+  fill: "#161B22",
+  borderBottom: { color: "#30363D", width: 1 }
+})
+
+// 菜单项
+menuFile=I(menuBar, {
+  type: "text",
+  content: "文件",
+  x: 15,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+menuEdit=I(menuBar, {
+  type: "text",
+  content: "编辑",
+  x: 55,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+menuView=I(menuBar, {
+  type: "text",
+  content: "视图",
+  x: 95,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+menuInsert=I(menuBar, {
+  type: "text",
+  content: "插入",
+  x: 135,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+menuFormat=I(menuBar, {
+  type: "text",
+  content: "格式",
+  x: 175,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+menuHelp=I(menuBar, {
+  type: "text",
+  content: "帮助",
+  x: 215,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+// ========== 3. 工具栏 (44px) ==========
+toolbar=I(screen, {
+  type: "frame",
+  name: "Toolbar",
+  x: 0,
+  y: 68,
+  width: 1200,
+  height: 44,
+  fill: "#0D1117",
+  borderBottom: { color: "#30363D", width: 1 }
+})
+
+// 工具按钮背景
+toolBtn1=I(toolbar, {
+  type: "frame",
+  x: 15,
+  y: 8,
+  width: 32,
+  height: 28,
+  fill: "#238636",
+  cornerRadius: 4
+})
+
+toolBtn1Icon=I(toolBtn1, {
+  type: "text",
+  content: "+",
+  x: 16,
+  y: 19,
+  fontSize: 16,
+  fontWeight: "bold",
+  fill: "#FFFFFF"
+})
+
+toolBtn2=I(toolbar, {
+  type: "frame",
+  x: 55,
+  y: 8,
+  width: 32,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+toolBtn2Icon=I(toolBtn2, {
+  type: "text",
+  content: "子",
+  x: 16,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+toolBtn3=I(toolbar, {
+  type: "frame",
+  x: 95,
+  y: 8,
+  width: 32,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+toolBtn3Icon=I(toolBtn3, {
+  type: "text",
+  content: "兄",
+  x: 16,
+  y: 19,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+toolBtn4=I(toolbar, {
+  type: "frame",
+  x: 135,
+  y: 8,
+  width: 32,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+toolBtn4Icon=I(toolBtn4, {
+  type: "text",
+  content: "删",
+  x: 16,
+  y: 19,
+  fontSize: 12,
+  fill: "#F85149"
+})
+
+// 分隔线
+toolbarDivider=I(toolbar, {
+  type: "frame",
+  x: 180,
+  y: 10,
+  width: 1,
+  height: 24,
+  fill: "#30363D"
+})
+
+// 布局选择
+layoutLabel=I(toolbar, {
+  type: "text",
+  content: "布局:",
+  x: 195,
+  y: 27,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+layoutBtn=I(toolbar, {
+  type: "frame",
+  x: 235,
+  y: 8,
+  width: 100,
+  height: 28,
+  fill: "#238636",
+  cornerRadius: 4
+})
+
+layoutText=I(layoutBtn, {
+  type: "text",
+  content: "向右展开 ▼",
+  x: 50,
+  y: 19,
+  fontSize: 12,
+  fill: "#FFFFFF"
+})
+
+// 撤销重做按钮
+undoBtn=I(toolbar, {
+  type: "frame",
+  x: 1050,
+  y: 8,
+  width: 28,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+undoIcon=I(undoBtn, {
+  type: "text",
+  content: "↶",
+  x: 14,
+  y: 20,
+  fontSize: 14,
+  fill: "#8B949E"
+})
+
+redoBtn=I(toolbar, {
+  type: "frame",
+  x: 1085,
+  y: 8,
+  width: 28,
+  height: 28,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+redoIcon=I(redoBtn, {
+  type: "text",
+  content: "↷",
+  x: 14,
+  y: 20,
+  fontSize: 14,
+  fill: "#8B949E"
+})
+
+// ========== 4. 左侧面板 (200px) ==========
+leftPanel=I(screen, {
+  type: "frame",
+  name: "LeftPanel",
+  x: 0,
+  y: 112,
+  width: 200,
+  height: 656,
+  fill: "#161B22",
+  borderRight: { color: "#30363D", width: 1 }
+})
+
+// 大纲标题
+outlineTitle=I(leftPanel, {
+  type: "text",
+  content: "大纲",
+  x: 15,
+  y: 28,
+  fontSize: 12,
+  fontWeight: "600",
+  fill: "#8B949E"
+})
+
+// 大纲内容
+outlineItem1=I(leftPanel, {
+  type: "text",
+  content: "  项目计划",
+  x: 15,
+  y: 55,
+  fontSize: 13,
+  fill: "#34C759"
+})
+
+outlineItem2=I(leftPanel, {
+  type: "text",
+  content: "    需求分析",
+  x: 15,
+  y: 80,
+  fontSize: 13,
+  fill: "#C9D1D9"
+})
+
+outlineItem3=I(leftPanel, {
+  type: "text",
+  content: "    技术选型",
+  x: 15,
+  y: 105,
+  fontSize: 13,
+  fill: "#C9D1D9"
+})
+
+outlineItem4=I(leftPanel, {
+  type: "text",
+  content: "    开发阶段",
+  x: 15,
+  y: 130,
+  fontSize: 13,
+  fill: "#C9D1D9"
+})
+
+// ========== 5. 标签栏 ==========
+tabBar=I(screen, {
+  type: "frame",
+  name: "TabBar",
+  x: 200,
+  y: 112,
+  width: 800,
+  height: 36,
+  fill: "#0D1117",
+  borderBottom: { color: "#30363D", width: 1 }
+})
+
+// 当前标签
+activeTab=I(tabBar, {
+  type: "frame",
+  name: "ActiveTab",
+  x: 10,
+  y: 0,
+  width: 120,
+  height: 36,
+  fill: "#161B22",
+  borderBottom: { color: "#34C759", width: 2 }
+})
+
+tabText1=I(activeTab, {
+  type: "text",
+  content: "未命名.mindmap",
+  x: 15,
+  y: 22,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+tabClose1=I(activeTab, {
+  type: "text",
+  content: "×",
+  x: 100,
+  y: 21,
+  fontSize: 14,
+  fill: "#8B949E"
+})
+
+// + 按钮
+addTabBtn=I(tabBar, {
+  type: "frame",
+  x: 140,
+  y: 8,
+  width: 20,
+  height: 20,
+  fill: "#21262D",
+  cornerRadius: 3
+})
+
+addTabIcon=I(addTabBtn, {
+  type: "text",
+  content: "+",
+  x: 10,
+  y: 14,
+  fontSize: 14,
+  fill: "#8B949E"
+})
+
+// ========== 6. 主画布区域 ==========
+canvasArea=I(screen, {
+  type: "frame",
+  name: "CanvasArea",
+  x: 200,
+  y: 148,
+  width: 800,
+  height: 620,
+  fill: "#0D1117"
+})
+
+// 背景网格点装饰 ( subtle )
+gridDot1=I(canvasArea, {
+  type: "ellipse",
+  cx: 100,
+  cy: 100,
+  rx: 1,
+  ry: 1,
+  fill: "#30363D"
+})
+
+gridDot2=I(canvasArea, {
+  type: "ellipse",
+  cx: 150,
+  cy: 100,
+  rx: 1,
+  ry: 1,
+  fill: "#30363D"
+})
+
+// 根节点
+rootNode=I(canvasArea, {
+  type: "frame",
+  name: "RootNode",
+  x: 350,
+  y: 280,
+  width: 100,
+  height: 40,
+  fill: "#238636",
+  cornerRadius: 20
+})
+
+rootText=I(rootNode, {
+  type: "text",
+  content: "项目计划",
+  x: 50,
+  y: 24,
+  fontSize: 14,
+  fontWeight: "600",
+  fill: "#FFFFFF"
+})
+
+// 子节点1
+childNode1=I(canvasArea, {
+  type: "frame",
+  x: 520,
+  y: 180,
+  width: 100,
+  height: 36,
+  fill: "#161B22",
+  cornerRadius: 6,
+  border: { color: "#34C759", width: 1 }
+})
+
+childText1=I(childNode1, {
+  type: "text",
+  content: "需求分析",
+  x: 50,
+  y: 22,
+  fontSize: 13,
+  fill: "#C9D1D9"
+})
+
+// 子节点2
+childNode2=I(canvasArea, {
+  type: "frame",
+  x: 520,
+  y: 280,
+  width: 100,
+  height: 36,
+  fill: "#161B22",
+  cornerRadius: 6,
+  border: { color: "#34C759", width: 1 }
+})
+
+childText2=I(childNode2, {
+  type: "text",
+  content: "技术选型",
+  x: 50,
+  y: 22,
+  fontSize: 13,
+  fill: "#C9D1D9"
+})
+
+// 子节点3
+childNode3=I(canvasArea, {
+  type: "frame",
+  x: 520,
+  y: 380,
+  width: 100,
+  height: 36,
+  fill: "#238636",
+  cornerRadius: 6
+})
+
+childText3=I(childNode3, {
+  type: "text",
+  content: "开发阶段",
+  x: 50,
+  y: 22,
+  fontSize: 13,
+  fontWeight: "500",
+  fill: "#FFFFFF"
+})
+
+// 连接线 (贝塞尔曲线)
+connection1=I(canvasArea, {
+  type: "path",
+  d: "M450,300 Q485,198 520,198",
+  stroke: "#34C759",
+  strokeWidth: 2,
+  fill: "none"
+})
+
+connection2=I(canvasArea, {
+  type: "path",
+  d: "M450,300 Q485,298 520,298",
+  stroke: "#34C759",
+  strokeWidth: 2,
+  fill: "none"
+})
+
+connection3=I(canvasArea, {
+  type: "path",
+  d: "M450,300 Q485,398 520,398",
+  stroke: "#34C759",
+  strokeWidth: 2,
+  fill: "none"
+})
+
+// 孙节点
+grandchild1=I(canvasArea, {
+  type: "frame",
+  x: 680,
+  y: 160,
+  width: 90,
+  height: 32,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+grandchildText1=I(grandchild1, {
+  type: "text",
+  content: "用户调研",
+  x: 45,
+  y: 20,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+grandchild2=I(canvasArea, {
+  type: "frame",
+  x: 680,
+  y: 200,
+  width: 90,
+  height: 32,
+  fill: "#21262D",
+  cornerRadius: 4
+})
+
+grandchildText2=I(grandchild2, {
+  type: "text",
+  content: "竞品分析",
+  x: 45,
+  y: 20,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+// 孙节点连接线
+connG1=I(canvasArea, {
+  type: "path",
+  d: "M620,198 Q650,176 680,176",
+  stroke: "#34C759",
+  strokeWidth: 1.5,
+  fill: "none"
+})
+
+connG2=I(canvasArea, {
+  type: "path",
+  d: "M620,198 Q650,216 680,216",
+  stroke: "#34C759",
+  strokeWidth: 1.5,
+  fill: "none"
+})
+
+// ========== 7. 右侧面板 (200px) ==========
+rightPanel=I(screen, {
+  type: "frame",
+  name: "RightPanel",
+  x: 1000,
+  y: 112,
+  width: 200,
+  height: 656,
+  fill: "#161B22",
+  borderLeft: { color: "#30363D", width: 1 }
+})
+
+// 属性面板标题
+propTitle=I(rightPanel, {
+  type: "text",
+  content: "属性",
+  x: 15,
+  y: 28,
+  fontSize: 12,
+  fontWeight: "600",
+  fill: "#8B949E"
+})
+
+// 节点样式组
+styleGroup=I(rightPanel, {
+  type: "text",
+  content: "节点样式",
+  x: 15,
+  y: 55,
+  fontSize: 11,
+  fill: "#34C759"
+})
+
+// 形状选择
+shapeLabel=I(rightPanel, {
+  type: "text",
+  content: "形状",
+  x: 15,
+  y: 80,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+shapeValue=I(rightPanel, {
+  type: "text",
+  content: "圆角矩形 ▼",
+  x: 15,
+  y: 100,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+// 填充颜色
+fillLabel=I(rightPanel, {
+  type: "text",
+  content: "填充",
+  x: 15,
+  y: 130,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+fillColor=I(rightPanel, {
+  type: "frame",
+  x: 15,
+  y: 145,
+  width: 24,
+  height: 24,
+  fill: "#238636",
+  cornerRadius: 4
+})
+
+// 边框颜色
+borderLabel=I(rightPanel, {
+  type: "text",
+  content: "边框",
+  x: 50,
+  y: 130,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+borderColor=I(rightPanel, {
+  type: "frame",
+  x: 50,
+  y: 145,
+  width: 24,
+  height: 24,
+  fill: "#34C759",
+  cornerRadius: 4
+})
+
+// 字体设置
+fontLabel=I(rightPanel, {
+  type: "text",
+  content: "字体",
+  x: 15,
+  y: 185,
+  fontSize: 12,
+  fill: "#C9D1D9"
+})
+
+fontValue=I(rightPanel, {
+  type: "text",
+  content: "PingFang SC",
+  x: 15,
+  y: 205,
+  fontSize: 12,
+  fill: "#8B949E"
+})
+
+// ========== 8. 状态栏 (28px) ==========
+statusBar=I(screen, {
+  type: "frame",
+  name: "StatusBar",
+  x: 0,
+  y: 772,
+  width: 1200,
+  height: 28,
+  fill: "#238636"
+})
+
+statusZoom=I(statusBar, {
+  type: "text",
+  content: "缩放: 100%",
+  x: 15,
+  y: 18,
+  fontSize: 11,
+  fill: "#FFFFFF"
+})
+
+statusNodeCount=I(statusBar, {
+  type: "text",
+  content: "节点: 7",
+  x: 100,
+  y: 18,
+  fontSize: 11,
+  fill: "#FFFFFF"
+})
+
+statusPos=I(statusBar, {
+  type: "text",
+  content: "位置: (520, 280)",
+  x: 170,
+  y: 18,
+  fontSize: 11,
+  fill: "#FFFFFF"
+})
+
+statusLayout=I(statusBar, {
+  type: "text",
+  content: "布局: 向右展开",
+  x: 300,
+  y: 18,
+  fontSize: 11,
+  fill: "#FFFFFF"
+})
