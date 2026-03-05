@@ -8,7 +8,7 @@ ai时代, 做点有难度的事 https://github.com/lornally/tough-dog
  3. 这里有agents.md已经可以支撑进行UI设计,
 
 ### 应用
-* 设计 这个目录里面是设计的案例, 贡献者: xuleqi@gmail.com(lucky)
+* 设计 这个目录里面是设计的案例, 贡献者: @XuLeQi(lucky)
 * pyside本地应用 贡献者 @高翔, @lornally
 * 数据驱动/分析  @lornally准备中
 
